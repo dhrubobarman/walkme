@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'walkme-runner',
-      fileName: (format) => `walkme-runner.${format}.js`
+      name: 'walkme',
+      fileName: (format) => `walkme.${format}.js`
     }
   },
   resolve: {
