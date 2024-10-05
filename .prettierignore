@@ -1,0 +1,11 @@
+coverage\npublic\ndist\npnpm-lock.yaml
+/eslint.config.js
+/.git
+/.svn
+/.hg
+/node_modules
+dist/
+dist
+node_modules/
+/build/
+/dist/** */
