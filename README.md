@@ -134,5 +134,5 @@ const walkMeInstance = new WalkMe(walkmeProps);
 walkMeInstance.start();
 ```
 
-![image](https://github.com/user-attachments/assets/84abe27a-9e18-4e25-aba4-42002dfe9549)
-![image](https://github.com/user-attachments/assets/0c311df7-c652-4d9e-8365-b16af76e6607)
+![image](https://github.com/user-attachments/assets/0cf7e563-ece1-4731-a56d-fdd415bd440b)
+![image](https://github.com/user-attachments/assets/2fb053fd-1e72-4a00-b6b5-36c22e0ff161)
