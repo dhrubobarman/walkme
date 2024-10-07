@@ -163,21 +163,21 @@ export class HandleSteps {
     }
   }
 
-  async next() {
+  next() {
     this.currentIndex++;
     this.disableButtons();
     this.currentStep = this.steps[this.currentIndex];
     this.showCurrentStep();
   }
 
-  async prev() {
+  prev() {
     this.currentIndex--;
     this.disableButtons();
     this.currentStep = this.steps[this.currentIndex];
     this.showCurrentStep();
   }
 
-  async start() {
+  start() {
     this.disableButtons();
     if (!this.walkme.started) return;
     this.started = true;

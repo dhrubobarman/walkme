@@ -1,4 +1,4 @@
-import { createButton, createCard, createHeading, createOverlay, createP, walkmeContainer } from '@/UI/components';
+import { createButton, createCard, createDots, createHeading, createOverlay, createP, walkmeContainer } from '@/UI/components';
 import { createElement } from '@/utils/createElement';
 import { Walkme } from '@/Walkme';
 import { HandleSteps, StepWithDetails } from '@/Walkme/HandleSteps';
@@ -15,6 +15,7 @@ export class StepUI {
   private nextButton: HTMLButtonElement = createButton({ innerText: 'Next', variant: 'secondary', className: 'next-button' });
   private prevButton: HTMLButtonElement = createButton({ innerText: 'Prev', variant: 'primary', className: 'prev-button' });
   private skipButton: HTMLButtonElement = createButton({ innerText: 'Skip', variant: 'tertiary', className: 'skip-button' });
+  private statusDots: ReturnType<typeof createDots>;
   private padding: number = 8;
   private overlay = createOverlay({ windowPosition: { top: 0, left: 0, width: 0, height: 0 }, padding: this.padding });
   private cardRect: DOMRect = this.card.getBoundingClientRect();
@@ -24,6 +25,7 @@ export class StepUI {
   constructor({ walkme, handleSteps }: StepUIProps) {
     this.walkme = walkme;
     this.handleSteps = handleSteps;
+    this.statusDots = createDots({ dotsCount: this.handleSteps.steps.length });
     this.attachClickEvents();
   }
 
@@ -36,6 +38,14 @@ export class StepUI {
   start() {
     this.walkmeContainer.appendChild(this.overlay.outerDiv);
     document.body.style.overflow = 'hidden';
+    this.card.appendChild(this.title);
+    this.card.appendChild(this.description);
+    this.card.appendChild(this.statusDots.container);
+    const footer = createElement('div', { className: 'flex justify-between gap-2 border-t border-gray-200 dark:border-gray-700 pt-3 items-center' });
+    footer.appendChild(this.prevButton);
+    footer.appendChild(this.skipButton);
+    footer.appendChild(this.nextButton);
+    this.card.appendChild(footer);
   }
   stop() {
     this.walkmeContainer.innerHTML = '';
@@ -45,6 +55,7 @@ export class StepUI {
   private initCardWithMessages(data: StepWithDetails) {
     this.nextButton.disabled = this.handleSteps.isNextButtonDisabled;
     this.prevButton.disabled = this.handleSteps.isPrevButtonDisabled;
+    this.statusDots.changeActiveDotIndex(this.handleSteps.currentIndex);
     if (this.handleSteps.currentIndex === this.handleSteps.steps.length - 1) {
       this.nextButton.disabled = false;
       this.nextButton.innerText = 'Finish';
@@ -53,16 +64,8 @@ export class StepUI {
       this.nextButton.innerText = 'Next';
       this.nextButton.onclick = () => this.handleSteps.next();
     }
-    this.card.innerHTML = '';
     this.title.innerHTML = data.title;
     this.description.innerHTML = data.description || '';
-    this.card.appendChild(this.title);
-    this.card.appendChild(this.description);
-    const footer = createElement('div', { className: 'flex justify-between gap-2 border-t border-gray-200 dark:border-gray-700 pt-3 items-center' });
-    footer.appendChild(this.prevButton);
-    footer.appendChild(this.skipButton);
-    footer.appendChild(this.nextButton);
-    this.card.appendChild(footer);
     const borderRadius = parseInt(getComputedStyle(data.element).borderRadius);
     this.overlay.handleChangeWindowPosition({
       top: data.elementRect.top,

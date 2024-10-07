@@ -46,7 +46,7 @@ export const createP = (props?: Partial<HTMLHeadingElement>) => {
 export const createCard = (props?: Partial<HTMLDivElement>) => {
   const { className, ...rest } = props || {};
   return createElement('div', {
-    className: `max-w-sm w-[24rem] p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${className}`,
+    className: `walkme-card max-w-sm w-[24rem] p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${className}`,
     ...rest
   });
 };
@@ -96,4 +96,39 @@ export const createOverlay = ({ windowPosition, className, padding = 8, ...rest 
   handleChangeWindowPosition(windowPosition);
 
   return { outerDiv, innerWindowDiv, handleChangeWindowPosition };
+};
+
+type CreateDotsProps = {
+  dotsCount: number;
+} & Partial<HTMLDivElement>;
+export const createDots = (props: CreateDotsProps) => {
+  const { className, dotsCount, ...rest } = props || {};
+  const activeDotClass = ['bg-gray-800', 'dark:bg-white'];
+  const normalDotsClass = ['bg-gray-300', 'dark:bg-gray-500'];
+
+  const dots = Array.from({ length: dotsCount }).map(() => {
+    return createElement('div', {
+      className: `w-2 h-2 rounded-full mx-1`
+    });
+  });
+
+  const container = createElement('div', {
+    className: `flex justify-center mb-2 items-center ${className}`,
+    ...rest
+  });
+  const changeActiveDotIndex = (index: number) => {
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.add(...activeDotClass);
+        dot.classList.remove(...normalDotsClass);
+      } else {
+        dot.classList.add(...normalDotsClass);
+        dot.classList.remove(...activeDotClass);
+      }
+    });
+  };
+  changeActiveDotIndex(0);
+  container.append(...dots);
+
+  return { container, changeActiveDotIndex };
 };
