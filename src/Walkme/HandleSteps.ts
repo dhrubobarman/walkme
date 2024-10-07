@@ -44,7 +44,7 @@ export class HandleSteps {
   }
 
   private attachResizeEventListeners() {
-    this.resizeObserver = new ResizeObserver((e) => {
+    this.resizeObserver = new ResizeObserver(() => {
       this.debouncedResize();
     });
     this.resizeObserver.observe(document.body);
