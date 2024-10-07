@@ -7,7 +7,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'walkme',
-      fileName: (format) => `walkme.${format}.js`
+      fileName: (format) => `index.${format}.js`
     }
   },
   resolve: {
