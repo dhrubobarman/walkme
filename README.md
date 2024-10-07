@@ -1,5 +1,7 @@
 # Typescript WalkMe library
 
+![image](https://github.com/user-attachments/assets/0cf7e563-ece1-4731-a56d-fdd415bd440b)
+
 WalkMe is a library designed to guide users through a website step-by-step. It takes `WalkmeProps` as input and provides an interactive walkthrough experience.
 
 ## Getting Started
