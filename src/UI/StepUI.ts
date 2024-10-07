@@ -9,7 +9,7 @@ export type StepUIProps = {
 };
 export class StepUI {
   walkme: Walkme;
-  private card: HTMLDivElement = createCard({ className: 'fixed z-[51]' });
+  private card: HTMLDivElement = createCard({ className: 'fixed z-[51]  transition-all duration-300' });
   private title: HTMLHeadingElement = createHeading({ className: 'border-b border-gray-200 dark:border-gray-700 pb-3' });
   private description: HTMLParagraphElement = createP();
   private nextButton: HTMLButtonElement = createButton({ innerText: 'Next', variant: 'secondary', className: 'next-button' });
@@ -39,6 +39,7 @@ export class StepUI {
   }
   stop() {
     this.walkmeContainer.innerHTML = '';
+    document.body.style.overflow = '';
   }
 
   private initCardWithMessages(data: StepWithDetails) {
