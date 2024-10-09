@@ -50,6 +50,26 @@ export class HandleSteps {
     this.resizeObserver.observe(document.body);
   }
 
+  private boundKeyboardEvent(e: KeyboardEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!this.found) {
+      return;
+    }
+    if (e.key === 'ArrowRight' || e.key === 'Enter') {
+      this.next();
+    } else if (e.key === 'ArrowLeft') {
+      this.prev();
+    }
+  }
+
+  private attachKeyboardListener() {
+    document.addEventListener('keydown', this.boundKeyboardEvent.bind(this));
+  }
+  private removeKeyboardListener() {
+    document.removeEventListener('keydown', this.boundKeyboardEvent.bind(this));
+  }
+
   async getStepDetails() {
     if (!this.currentStep || !this.currentStep.target) return null;
     const element = <HTMLElement>document.querySelector(this.currentStep.target);
@@ -82,9 +102,9 @@ export class HandleSteps {
 
   getCurrentStepDetails(): Promise<StepWithDetails> {
     return new Promise((resolve, reject) => {
+      this.found = false;
       if (!this.started) reject('WalkMe has not started yet.');
       if (this.maxIntervalCount <= 0) {
-        this.found = false;
         clearInterval(this.interval);
         reject(`Element not found with target: ${this.currentStep.target}`);
       }
@@ -166,6 +186,10 @@ export class HandleSteps {
   next() {
     this.currentIndex++;
     this.disableButtons();
+    if (this.currentIndex === this.steps.length) {
+      this.finish();
+      return;
+    }
     this.currentStep = this.steps[this.currentIndex];
     this.showCurrentStep();
   }
@@ -184,18 +208,22 @@ export class HandleSteps {
     this.stepUI.start();
     this.showCurrentStep();
     this.attachResizeEventListeners();
+    this.attachKeyboardListener();
   }
 
   stop() {
+    this.removeKeyboardListener();
     this.resizeObserver?.disconnect();
     this.stepUI.stop();
   }
   finish() {
+    this.removeKeyboardListener();
     this.resizeObserver?.disconnect();
     this.stepUI.stop();
     this.walkme.finish();
   }
   skip() {
+    this.removeKeyboardListener();
     this.resizeObserver?.disconnect();
     this.walkme.skip();
   }

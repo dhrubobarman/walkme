@@ -59,10 +59,8 @@ export class StepUI {
     if (this.handleSteps.currentIndex === this.handleSteps.steps.length - 1) {
       this.nextButton.disabled = false;
       this.nextButton.innerText = 'Finish';
-      this.nextButton.onclick = () => this.handleSteps.finish();
     } else {
       this.nextButton.innerText = 'Next';
-      this.nextButton.onclick = () => this.handleSteps.next();
     }
     this.title.innerHTML = data.title;
     this.description.innerHTML = data.description || '';

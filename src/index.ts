@@ -1,10 +1,11 @@
+import { createButton } from '@/UI/components';
+import { Walkme } from '@/Walkme';
 import { testData } from '@/tempData';
 import './style.scss';
-import { Walkme } from '@/Walkme';
-import { createElement } from '@/utils/createElement';
 export * from '@/Walkme';
 
-const button = createElement('button', { innerText: 'Start', className: 'start-button text-white fixed top-0 left-0 p-3 bg-gray-500' }, 'body');
+const button = createButton({ variant: 'primary', innerHTML: 'Start', className: 'absolute left-0 top-0' });
+document.body.appendChild(button);
 
 const walkme = new Walkme({ stepData: testData[0] });
 button.onclick = () => walkme.start();
