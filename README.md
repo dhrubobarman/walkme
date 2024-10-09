@@ -138,7 +138,7 @@ walkMeInstance.start();
 
 # Features
 
-The WalkMe library includes a feature that allows users to navigate through its guided steps using keyboard shortcuts. Users can utilize the arrow keys and Enter key to move between steps. This functionality enhances accessibility and provides a seamless experience for users who prefer or require keyboard navigation.
+1. The WalkMe library includes a feature that allows users to navigate through its guided steps using keyboard shortcuts. Users can utilize the arrow keys and Enter key to move between steps. This functionality enhances accessibility and provides a seamless experience for users who prefer or require keyboard navigation.
 
 ![image](https://github.com/user-attachments/assets/0cf7e563-ece1-4731-a56d-fdd415bd440b)
 ![image](https://github.com/user-attachments/assets/2fb053fd-1e72-4a00-b6b5-36c22e0ff161)
