@@ -195,6 +195,7 @@ export class HandleSteps {
   }
 
   prev() {
+    if (this.currentIndex === 0) return;
     this.currentIndex--;
     this.disableButtons();
     this.currentStep = this.steps[this.currentIndex];
